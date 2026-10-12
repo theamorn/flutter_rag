@@ -1,0 +1,12 @@
+// flutter_rust_bridge 2.11.1 looks up these entry points through dlsym.
+// rag_engine_flutter force-loads its archive, but Profile/Release dead-strip
+// functions without native callers. Mark only the bridge entry points as used.
+// Re-check these lists against MultiPackageCBinding and mobile_rag_engine's
+// RustLibWire when upgrading either pinned dependency.
+RAG_RUNTIME_FFI_LDFLAGS = -u _store_dart_post_cobject -u _frb_pde_ffi_dispatcher_primary -u _frb_pde_ffi_dispatcher_sync -u _frb_dart_fn_deliver_output -u _frb_get_rust_content_hash -u _frb_dart_opaque_dart2rust_encode -u _frb_dart_opaque_drop_thread_box_persistent_handle -u _frb_dart_opaque_rust2dart_decode -u _frb_rust_vec_u8_new -u _frb_rust_vec_u8_resize -u _frb_rust_vec_u8_free -u _frb_init_frb_dart_api_dl -u _frb_free_wire_sync_rust2dart_dco -u _frb_free_wire_sync_rust2dart_sse -u _frb_create_shutdown_callback
+
+// Ownership entry points for the two generated Rust opaque handle types.
+RAG_INGEST_SESSION_FFI_LDFLAGS = -u _frbgen_mobile_rag_engine_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerIngestSession -u _frbgen_mobile_rag_engine_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerIngestSession
+RAG_SEARCH_HANDLE_FFI_LDFLAGS = -u _frbgen_mobile_rag_engine_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSearchHandle -u _frbgen_mobile_rag_engine_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSearchHandle
+
+OTHER_LDFLAGS = $(inherited) $(RAG_RUNTIME_FFI_LDFLAGS) $(RAG_INGEST_SESSION_FFI_LDFLAGS) $(RAG_SEARCH_HANDLE_FFI_LDFLAGS)

@@ -1,0 +1,33 @@
+name: flutter_rag
+description: "On-device transaction search demo: ML Kit + rules, SQLite, MiniLM retrieval, optional Gemma 4."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  drift: 2.35.1
+  path_provider: ^2.1.5
+  google_mlkit_entity_extraction: 0.17.1
+  mobile_rag_engine: 0.20.0
+  flutter_gemma: 1.11.3
+  flutter_gemma_litertlm: 1.8.5
+  # Must equal the version rag_engine_flutter's Rust code was generated with
+  # (mobile_rag_engine only asks for ^2.11.1; pub would pick 2.13.0 and MobileRag
+  # fails to initialise with a codegen/runtime version error).
+  flutter_rust_bridge: 2.11.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/models/minilm/
